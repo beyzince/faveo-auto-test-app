@@ -12,7 +12,10 @@ import org.testapp.Api.PropertyManager.PropertyManager;
 import org.testapp.Api.RestClient.RestClientValidatableResponse;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
+
 import static com.jayway.restassured.RestAssured.given;
+
 
 public class FaveoMspTest {
     private String API_KEY = PropertyManager.getInstance().getApiKey();
@@ -23,27 +26,29 @@ public class FaveoMspTest {
     private String STAFF_UNIQUE_ID = PropertyManager.getInstance().getStaffUniqueId();
     private String USER_UNIQUE_ID = PropertyManager.getInstance().getUserUniqueId();
 
+
+    private static String customId = "";
+
     //data generation for soft delete
     DataGenerator dateData = new DataGenerator();
+//
 //    String MSP_ID = mspId + dateData.getRandomData();
 
 
-
-
     @Test
-    public void testString(){
+    public void testString() {
         System.out.println(MSP_ID);
 
 //        String ciguli = DataGenerator.getDataGenerator().getRandomData();
 //        System.out.println(ciguli);
 
     }
+
     @Test
-    public void testString2(){
+    public void testString2() {
         System.out.println(MSP_ID);
 
     }
-
 
 
     RequestUrl requestUrl = new RequestUrl();
@@ -59,8 +64,11 @@ public class FaveoMspTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Description("Creating MSP with POST operation")
-    public void createMsp(){
-        mspRequestBody= new MspRequestBody();
+    public void createMsp() {
+
+
+        System.out.println(MSP_ID);
+        mspRequestBody = new MspRequestBody();
 /*        response = given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer "+API_KEY)
@@ -87,8 +95,12 @@ public class FaveoMspTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Description("Update MSP with PATCH operation")
-    public void updateMsp(){
-        mspRequestBody= new MspRequestBody();
+
+    public void updateMsp() {
+
+        System.out.println(MSP_ID);
+
+        mspRequestBody = new MspRequestBody();
         response = RestClientValidatableResponse.doPatch(requestUrl.getMspUpdateRequestUrl(),
                 mspRequestBody.getMspUpdateBody(MSP_ID));
 
@@ -102,11 +114,14 @@ public class FaveoMspTest {
 
 
     }
+
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Description("Hold MSP with PATCH operation")
-    public void holdMsp(){
-        mspRequestBody= new MspRequestBody();
+    public void holdMsp() {
+        System.out.println(MSP_ID);
+
+        mspRequestBody = new MspRequestBody();
         response = RestClientValidatableResponse.doPatch(requestUrl.getMspHoldRequestUrl(),
                 mspRequestBody.getMspHoldBody(MSP_ID));
         //sout
@@ -121,11 +136,14 @@ public class FaveoMspTest {
 
 
     }
+
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Description("Unhold MSP with PATCH operation")
-    public void unholdMsp(){
-        mspRequestBody= new MspRequestBody();
+    public void unholdMsp() {
+        System.out.println(MSP_ID);
+
+        mspRequestBody = new MspRequestBody();
         response = RestClientValidatableResponse.doPatch(requestUrl.getMspUnholdRequestUrl(),
                 mspRequestBody.getMspUnholdRequestBody(MSP_ID));
 
@@ -140,8 +158,9 @@ public class FaveoMspTest {
         response.assertThat().body("data.msp_id", IsEqual.equalTo(MSP_ID));
 
     }
+
     @Test
-    public void createRole(){
+    public void createRole() {
         roleRequestBody = new RoleRequestBody();
 
         //sending request
@@ -158,8 +177,9 @@ public class FaveoMspTest {
         response.assertThat().body("message", IsEqual.equalTo("Role Created"));
 
     }
+
     @Test
-    public void createAdmin(){
+    public void createAdmin() {
         adminRequestBody = new AdminRequestBody();
 
         response = RestClientValidatableResponse.doPost(requestUrl.getAdminCreateRequestUrl(),
@@ -171,12 +191,13 @@ public class FaveoMspTest {
         //assertions
 
     }
+
     @Test
-    public void createCompany(){
+    public void createCompany() {
         companyRequestBody = new CompanyRequestBody();
 
         response = RestClientValidatableResponse.doPost(requestUrl.getCompanyCreateRequestUrl(),
-                companyRequestBody.getCompanyCreateRequestBody(MSP_ID,COMPANY_ID));
+                companyRequestBody.getCompanyCreateRequestBody(MSP_ID, COMPANY_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -185,12 +206,13 @@ public class FaveoMspTest {
 
 
     }
+
     @Test
-    public void updateCompany(){
+    public void updateCompany() {
         companyRequestBody = new CompanyRequestBody();
 
         response = RestClientValidatableResponse.doPatch(requestUrl.getCompanyUpdateRequestUrl(),
-                companyRequestBody.getCompanyUpdateRequestBody(MSP_ID,COMPANY_ID));
+                companyRequestBody.getCompanyUpdateRequestBody(MSP_ID, COMPANY_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -199,12 +221,13 @@ public class FaveoMspTest {
 
 
     }
+
     @Test
-    public void createStaff(){
+    public void createStaff() {
         staffRequestBody = new StaffRequestBody();
 
         response = RestClientValidatableResponse.doPost(requestUrl.getStaffCreateRequestUrl(),
-                staffRequestBody.getStaffCreateRequestBody(MSP_ID,STAFF_UNIQUE_ID));
+                staffRequestBody.getStaffCreateRequestBody(MSP_ID, STAFF_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -212,15 +235,14 @@ public class FaveoMspTest {
         //assertions
 
 
-
-
     }
+
     @Test
-    public void updateStaff(){
+    public void updateStaff() {
         staffRequestBody = new StaffRequestBody();
 
         response = RestClientValidatableResponse.doPatch(requestUrl.getStaffUpdateRequestUrl(),
-                staffRequestBody.getStaffUpdateRequestBody(MSP_ID,STAFF_UNIQUE_ID));
+                staffRequestBody.getStaffUpdateRequestBody(MSP_ID, STAFF_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -228,12 +250,13 @@ public class FaveoMspTest {
         //assertions
 
     }
+
     @Test
-    public void createUser(){
+    public void createUser() {
         userRequestBody = new UserRequestBody();
 
         response = RestClientValidatableResponse.doPost(requestUrl.getUserCreateRequestUrl(),
-                userRequestBody.getUserCreateRequestBody(MSP_ID,COMPANY_ID,USER_UNIQUE_ID));
+                userRequestBody.getUserCreateRequestBody(MSP_ID, COMPANY_ID, USER_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -241,12 +264,13 @@ public class FaveoMspTest {
         //assertions
 
     }
+
     @Test
-    public void updateUser(){
+    public void updateUser() {
         userRequestBody = new UserRequestBody();
 
         response = RestClientValidatableResponse.doPatch(requestUrl.getUserUpdateRequestUrl(),
-                userRequestBody.getUserUpdateRequestBody(MSP_ID,COMPANY_ID,USER_UNIQUE_ID));
+                userRequestBody.getUserUpdateRequestBody(MSP_ID, COMPANY_ID, USER_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -254,24 +278,26 @@ public class FaveoMspTest {
         //assertions
 
     }
+
     @Test
-    public void deleteUser(){
+    public void deleteUser() {
         userRequestBody = new UserRequestBody();
 
         response = RestClientValidatableResponse.doDelete(requestUrl.getUserDeleteRequestUrl(),
-                userRequestBody.getUserDeleteRequestBody(MSP_ID,USER_UNIQUE_ID));
+                userRequestBody.getUserDeleteRequestBody(MSP_ID, USER_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
 
         //assertions
     }
+
     @Test
-    public void deleteStaff(){
+    public void deleteStaff() {
         staffRequestBody = new StaffRequestBody();
 
         response = RestClientValidatableResponse.doDelete(requestUrl.getStaffDeleteRequestUrl(),
-                staffRequestBody.getStaffDeleteRequestBody(MSP_ID,STAFF_UNIQUE_ID));
+                staffRequestBody.getStaffDeleteRequestBody(MSP_ID, STAFF_UNIQUE_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -279,12 +305,13 @@ public class FaveoMspTest {
         //assertions
 
     }
+
     @Test
-    public void deleteCompany(){
+    public void deleteCompany() {
         companyRequestBody = new CompanyRequestBody();
 
         response = RestClientValidatableResponse.doDelete(requestUrl.getCompanyDeleteRequestUrl(),
-                companyRequestBody.getCompanyDeleteRequestBody(MSP_ID,COMPANY_ID));
+                companyRequestBody.getCompanyDeleteRequestBody(MSP_ID, COMPANY_ID));
 
         //sout
         RestClientValidatableResponse.responseAsString(response);
@@ -295,8 +322,8 @@ public class FaveoMspTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Description("Delete MSP with DELETE operation")
-    public void deleteMsp(){
-        mspRequestBody= new MspRequestBody();
+    public void deleteMsp() {
+        mspRequestBody = new MspRequestBody();
 
         response = RestClientValidatableResponse.doDelete(requestUrl.getMspDeleteRequestUrl(),
                 mspRequestBody.getMspDeleteRequestBody(MSP_ID));

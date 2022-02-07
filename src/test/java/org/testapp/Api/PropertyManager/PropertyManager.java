@@ -3,6 +3,7 @@ package org.testapp.Api.PropertyManager;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.UUID;
 
 public class PropertyManager {
     private static PropertyManager instance;
@@ -38,7 +39,7 @@ public class PropertyManager {
         }
         apiKey = properties.getProperty("api_key");
         url = properties.getProperty("url");
-        mspId = properties.getProperty("msp_id");
+        mspId = UUID.randomUUID().toString();//properties.getProperty("msp_id");
         id = properties.getProperty("id");
         companyId = properties.getProperty("company_id");
         staffUniqueId = properties.getProperty("staff_unique_id");
